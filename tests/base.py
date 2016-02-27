@@ -9,7 +9,9 @@
 # Copyright (c) 2016, Matthew Conlen <mc@mathisonian.com>
 
 from unittest import TestCase as PythonTestCase
-
+from gnoll_python import GnollClient
 
 class TestCase(PythonTestCase):
-    pass
+
+  def test_parse_spec(self):
+      gnoll = GnollClient()

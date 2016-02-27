@@ -1,5 +1,4 @@
 
-
 class Selection(object):
     def __init__(self, nodes):
         self.nodes = nodes

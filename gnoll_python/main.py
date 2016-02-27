@@ -2,7 +2,7 @@ import socket
 import json
 from random import random
 
-from .actions.dispatch import update_node
+from .actions.dispatch import dispatch
 from .nodes.base import Node
 from .selection import Selection
 
@@ -37,4 +37,4 @@ class GnollClient(object):
 
             in_node.send_to(out_node)
 
-        return new Selection(node_map.values())
+        return Selection(node_map.values())

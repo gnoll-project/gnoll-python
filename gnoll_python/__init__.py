@@ -9,3 +9,5 @@
 # Copyright (c) 2016, Matthew Conlen <mc@mathisonian.com>
 
 from gnoll_python.version import __version__  # NOQA
+
+from .main import GnollClient
