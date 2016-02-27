@@ -20,6 +20,9 @@ class GnollClient(object):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.TCP_IP, self.TCP_PORT))
 
+    def shutdown(self):
+        self.socket.close()
+
     def send_message(self, msg):
         msg = json.dumps(msg)
         self.socket.send(msg)

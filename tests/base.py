@@ -12,7 +12,7 @@ from unittest import TestCase as PythonTestCase
 from gnoll_python import GnollClient
 import json
 
-spec = json.loads('{"ui":{"componentToAdd":"SCATTER_COMPONENT"},"nodes":[{"id":0,"width":300,"height":300,"component":"DATA_COMPONENT","nodeType":"DATA_NODE","position":{"x":75.453125,"y":152}},{"id":1,"width":300,"height":300,"component":"SCATTER_COMPONENT","nodeType":"SINK_NODE","position":{"x":129.453125,"y":309}}],"edges":{"0":1}}')
+spec = json.loads('{"nodes":[{"id":0,"width":300,"height":300,"component":"DATA_COMPONENT","nodeType":"DATA_NODE","position":{"x":75.453125,"y":152}},{"id":1,"width":300,"height":300,"component":"SCATTER_COMPONENT","nodeType":"SINK_NODE","position":{"x":129.453125,"y":309}}],"edges":{"0":1}}')
 
 class TestCase(PythonTestCase):
 
@@ -21,5 +21,8 @@ class TestCase(PythonTestCase):
 
         nodes = gnoll.parse_spec(spec)
         data_node = nodes.find_by_id(0)
-
         data_node.set_data([{'x': 0, 'y': 0}])
+
+        gnoll.shutdown()
+
+    def test_transforms(self):

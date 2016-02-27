@@ -5,11 +5,8 @@ class Node(object):
         self.data = Subject()
         self.attrs = node_dict
 
-
     def send_to(self, to_node):
-        print 'connecting node %d to node %d' % (self.attrs['id'], to_node.attrs['id'])
         self.data.subscribe(to_node.on_data)
-
 
     @staticmethod
     def create(node_dict):
