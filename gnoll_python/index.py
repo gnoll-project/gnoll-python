@@ -2,8 +2,9 @@ import socket
 import json
 from random import random
 
-import dispatch from .actions.dispatch
-import Node from .nodes.base
+from .actions.dispatch import update_node
+from .nodes.base import Node
+from .selection import Selection
 
 
 class GnollClient(object):
@@ -18,11 +19,9 @@ class GnollClient(object):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.TCP_IP, self.TCP_PORT))
 
-
     def send_message(self, msg):
         msg = json.dumps(msg)
         self.socket.send(msg)
-
 
     def parse_gnoll_spec(self, spec):
         nodes = spec['nodes']
@@ -37,3 +36,5 @@ class GnollClient(object):
             out_node = node_map[value]
 
             in_node.send_to(out_node)
+
+        return new Selection(node_map.values())

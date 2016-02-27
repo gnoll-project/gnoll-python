@@ -1,6 +1,6 @@
-import DataNode from .data
-import TransformNode from .transform
-import SinkNode from .sink
+from .data import DataNode
+from .transform import TransformNode
+from .sink import SinkNode
 from rx.subjects import Subject
 
 node_type_map = {

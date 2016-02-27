@@ -1,4 +1,4 @@
-import Node from .base
+from .base import Node
 
 class TransformNode(Node):
 

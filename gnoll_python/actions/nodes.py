@@ -1,4 +1,4 @@
-import dispatch from .dispatch
+from .dispatch import dispatch
 
 def update_node(node_id, properties):
     dispatch.emit('action', {
