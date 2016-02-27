@@ -9,7 +9,7 @@
 # Copyright (c) 2016, Matthew Conlen <mc@mathisonian.com>
 
 from setuptools import setup, find_packages
-from gnoll_python import __version__
+from gnoll import __version__
 
 tests_require = [
     'mock',
@@ -60,7 +60,7 @@ Python client to GnollUI
     entry_points={
         'console_scripts': [
             # add cli scripts here in this form:
-            # 'gnoll-python=gnoll_python.cli:main',
+            # 'gnoll-python=gnoll.cli:main',
         ],
     },
 )

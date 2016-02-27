@@ -8,6 +8,6 @@
 # http://www.opensource.org/licenses/MIT-license
 # Copyright (c) 2016, Matthew Conlen <mc@mathisonian.com>
 
-from gnoll_python.version import __version__  # NOQA
+from gnoll.version import __version__  # NOQA
 
 from .main import GnollClient

@@ -10,7 +10,7 @@ omit =
     *tests.py
 branch = True
 source =
-    gnoll_python
+    gnoll
 
 [report]
 exclude_lines =

@@ -1,5 +1,5 @@
 from .base import Node
-from gnoll_python.actions.nodes import update_node
+from gnoll.actions.nodes import update_node
 
 class SinkNode(Node):
 

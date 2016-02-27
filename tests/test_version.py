@@ -10,7 +10,7 @@
 
 from preggy import expect
 
-from gnoll_python import __version__
+from gnoll import __version__
 from tests.base import TestCase
 
 

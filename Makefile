@@ -31,4 +31,4 @@ tox:
 	@tox
 
 #docs:
-	#@cd gnoll_python/docs && make html && open _build/html/index.html
+	#@cd gnoll/docs && make html && open _build/html/index.html

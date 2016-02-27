@@ -9,13 +9,13 @@
 # Copyright (c) 2016, Matthew Conlen <mc@mathisonian.com>
 
 from unittest import TestCase as PythonTestCase
-from gnoll_python import GnollClient
+from gnoll import GnollClient
 import json
 
 spec = json.loads('{"nodes":[{"id":0,"width":300,"height":300,"component":"DATA_COMPONENT","nodeType":"DATA_NODE","position":{"x":75.453125,"y":152}},{"id":1,"width":300,"height":300,"component":"SCATTER_COMPONENT","nodeType":"SINK_NODE","position":{"x":129.453125,"y":309}}],"edges":{"0":1}}')
+transform_spec = json.loads('{"nodes":[{"id":0,"width":300,"height":300,"component":"DATA_COMPONENT","nodeType":"DATA_NODE","position":{"x":107.453125,"y":141}},{"id":1,"width":300,"height":300,"component":"SLIDER_COMPONENT","nodeType":"TRANSFORM_NODE","position":{"x":143.453125,"y":242}},{"id":2,"width":300,"height":300,"component":"SCATTER_COMPONENT","nodeType":"SINK_NODE","position":{"x":119.453125,"y":431}}],"edges":{"0":1,"1":2}}')
 
 class TestCase(PythonTestCase):
-
     def test_parse_spec(self):
         gnoll = GnollClient()
 
@@ -26,3 +26,25 @@ class TestCase(PythonTestCase):
         gnoll.shutdown()
 
     def test_transforms(self):
+        gnoll = GnollClient()
+
+        nodes = gnoll.parse_spec(spec)
+
+        data_node = nodes.find_by_id(0)
+        transform_node = nodes.find_by_id(1)
+
+        def t(data, transform_attrs):
+            print 'transforming'
+            new_data = []
+            for d in data:
+                new_data.append({
+                    'x': d.x * transform_attrs['x'],
+                    'y': d.y * transform_attrs['y']
+                })
+            return new_data
+
+
+        transform_node.set_transform(t)
+        data_node.set_data([{'x': 1, 'y': 1}])
+
+        # gnoll.shutdown()
