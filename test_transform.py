@@ -28,3 +28,5 @@ for i in range(200):
     })
 
 data_node.set_data(setdata)
+
+gnoll.run()

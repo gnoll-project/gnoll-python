@@ -8,7 +8,7 @@ from .actions.dispatch import dispatch
 from .nodes.base import Node
 from .selection import Selection
 import signal
-import os
+from time import sleep
 
 TCP_IP = '127.0.0.1'
 TCP_PORT_SERVER = 7998
@@ -38,11 +38,9 @@ class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
 class GnollClient(object):
 
     def __init__(self):
-        print 'initializing'
         self.open_socket()
         dispatch.on('action', self.send_message)
         signal.signal(signal.SIGTERM, self.shutdown)
-
 
     def handle_incoming_data(self, data):
         node = self.selection.find_by_id(data['id'])
@@ -54,13 +52,12 @@ class GnollClient(object):
         self.server = ThreadedTCPServer((TCP_IP, TCP_PORT_SERVER), TCPHandlerFactory(self.handle_incoming_data))
         self.server_thread = threading.Thread(target=self.server.serve_forever)
         # Exit the server thread when the main thread terminates
-        # self.server_thread.daemon = True
-        try:
-            self.server_thread.start()
-        except KeyboardInterrupt:
-            os._exit()
+        self.server_thread.daemon = True
+        self.server_thread.start()
 
-        # self.server.serve_forever()
+    def run(self):
+        while True:
+            sleep(1)
 
     def shutdown(self):
         self.socket.close()
