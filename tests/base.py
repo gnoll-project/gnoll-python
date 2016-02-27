@@ -24,27 +24,3 @@ class TestCase(PythonTestCase):
         data_node.set_data([{'x': 0, 'y': 0}])
 
         gnoll.shutdown()
-
-    def test_transforms(self):
-        gnoll = GnollClient()
-
-        nodes = gnoll.parse_spec(spec)
-
-        data_node = nodes.find_by_id(0)
-        transform_node = nodes.find_by_id(1)
-
-        def t(data, transform_attrs):
-            print 'transforming'
-            new_data = []
-            for d in data:
-                new_data.append({
-                    'x': d.x * transform_attrs['x'],
-                    'y': d.y * transform_attrs['y']
-                })
-            return new_data
-
-
-        transform_node.set_transform(t)
-        data_node.set_data([{'x': 1, 'y': 1}])
-
-        # gnoll.shutdown()
