@@ -8,6 +8,14 @@ class Node(object):
     def send_to(self, to_node):
         self.data.subscribe(to_node.on_data)
 
+    def compute_output(self, data):
+        return self.transform(data, self.attrs.get('transformAttributes', {}))
+
+    def set_transform(self, transform):
+        self.transform = transform
+        if self._data is not None:
+            self.data.on_next(self.compute_output(self._data))
+
     @staticmethod
     def create(node_dict):
         from .data import DataNode

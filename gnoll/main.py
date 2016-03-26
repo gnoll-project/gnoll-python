@@ -38,9 +38,9 @@ class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
 class GnollClient(object):
 
     def __init__(self):
+        self.selection = Selection([])
         self.open_socket()
         dispatch.on('action', self.send_message)
-        signal.signal(signal.SIGTERM, self.shutdown)
 
     def handle_incoming_data(self, data):
         node = self.selection.find_by_id(data['id'])
@@ -55,9 +55,9 @@ class GnollClient(object):
         self.server_thread.daemon = True
         self.server_thread.start()
 
-    def run(self):
-        while True:
-            sleep(1)
+    # def run(self):
+    #     while True:
+    #         sleep(1)
 
     def shutdown(self):
         self.socket.close()
@@ -75,7 +75,11 @@ class GnollClient(object):
 
         node_map = {}
         for node in nodes:
-            node_map[int(node['id'])] = Node.create(node)
+            existing_node = self.selection.find_by_id(node['id'])
+            if existing_node is None:
+                node_map[int(node['id'])] = Node.create(node)
+            else:
+                node_map[int(node['id'])] = existing_node
 
         for key, value in edges.iteritems():
             in_node = node_map[int(key)]
